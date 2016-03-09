@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour {
 
     [HideInInspector]
     public Image aim;
+
+    public bool canJump = true;
    
     void Start()
     {
@@ -244,61 +246,69 @@ public class PlayerController : MonoBehaviour {
 
     IEnumerator JumpToWall(Vector3 point, Vector3 normal, bool smooth)
     {
-        // jump to wall 
-        jumping = true; // signal it's jumping to wall
-        GetComponent<Rigidbody>().isKinematic = true; // disable physics while jumping
-
-        Vector3 orgPos = transform.position;
-        Quaternion orgRot = transform.rotation;
-        Vector3 dstPos = point + normal * distGround; // will jump to 0.5 above wall
-        Vector3 myForward = Vector3.Cross(transform.right, normal);
-        Quaternion dstRot = Quaternion.LookRotation(myForward, normal);
-
-
-        //Debug.Log(grapinPos+" -> "+dstPos);
-
-        if (smooth)
+        if (canJump)
         {
+            // jump to wall 
+            jumping = true; // signal it's jumping to wall
+            GetComponent<Rigidbody>().isKinematic = true; // disable physics while jumping
+
+            Vector3 orgPos = transform.position;
+            Quaternion orgRot = transform.rotation;
+            Vector3 dstPos = point + normal * distGround; // will jump to 0.5 above wall
+            Vector3 myForward = Vector3.Cross(transform.right, normal);
+            Quaternion dstRot = Quaternion.LookRotation(myForward, normal);
+
+
+            //Debug.Log(grapinPos+" -> "+dstPos);
+
+            if (smooth)
+            {
+                for (float t = 0.0f; t < 1.0;)
+                {
+                    t += Time.deltaTime;
+                    grapin.transform.position = Vector3.Lerp(orgPos, dstPos, t);
+                    yield return null; // return here next frame
+                }
+                grapin.transform.parent = null;
+            }
+
+
+            //Camera.main.GetComponent<MouseOrbitImproved>().startCorrection();
+
             for (float t = 0.0f; t < 1.0;)
             {
                 t += Time.deltaTime;
-                grapin.transform.position = Vector3.Lerp(orgPos, dstPos, t);
+                transform.position = Vector3.Lerp(orgPos, dstPos, t);
+                transform.rotation = Quaternion.Slerp(orgRot, dstRot, t);
                 yield return null; // return here next frame
             }
-            grapin.transform.parent = null;
+            grapin.transform.parent = gameObject.transform;
+            grapin.transform.localPosition = grapinPos;
+            grapin.transform.localEulerAngles = new Vector3(270, 0, 0);
+
+            myNormal = normal; // update myNormal
+            GetComponent<Rigidbody>().isKinematic = false; // enable physics
+            jumping = false; // jumping to wall finished
         }
 
-
-        //Camera.main.GetComponent<MouseOrbitImproved>().startCorrection();
-
-        for (float t = 0.0f; t < 1.0;)
-        {
-            t += Time.deltaTime;
-            transform.position = Vector3.Lerp(orgPos, dstPos, t);
-            transform.rotation = Quaternion.Slerp(orgRot, dstRot, t);
-            yield return null; // return here next frame
-        }
-        grapin.transform.parent = gameObject.transform;
-        grapin.transform.localPosition = grapinPos;
-        grapin.transform.localEulerAngles = new Vector3(270, 0, 0);
+        yield return null;
         
-        myNormal = normal; // update myNormal
-        GetComponent<Rigidbody>().isKinematic = false; // enable physics
-        jumping = false; // jumping to wall finished
     }
 
     IEnumerator Hook(Vector3 point, Vector3 normal)
     {
-        // jump to wall 
-        jumping = true; // signal it's jumping to wall
-        GetComponent<Rigidbody>().isKinematic = true; // disable physics while jumping
+        if (canJump)
+        {
+            // jump to wall 
+            jumping = true; // signal it's jumping to wall
+            GetComponent<Rigidbody>().isKinematic = true; // disable physics while jumping
 
-        Vector3 orgPos = transform.position;
-        //Quaternion orgRot = transform.rotation;
-        Vector3 dstPos = point + normal * distGround; // will jump to 0.5 above wall
-        //Vector3 myForward = Vector3.Cross(transform.right, normal);
-        //Quaternion dstRot = Quaternion.LookRotation(myForward, normal);
-        
+            Vector3 orgPos = transform.position;
+            //Quaternion orgRot = transform.rotation;
+            Vector3 dstPos = point + normal * distGround; // will jump to 0.5 above wall
+                                                          //Vector3 myForward = Vector3.Cross(transform.right, normal);
+                                                          //Quaternion dstRot = Quaternion.LookRotation(myForward, normal);
+
             for (float t = 0.0f; t < 1.0;)
             {
                 t += Time.deltaTime;
@@ -306,21 +316,24 @@ public class PlayerController : MonoBehaviour {
                 yield return null; // return here next frame
             }
             grapin.transform.parent = null;
-        
-        /*for (float t = 0.0f; t < 1.0;)
-        {
-            t += Time.deltaTime;
-            transform.position = Vector3.Lerp(orgPos, dstPos, t);
-            transform.rotation = Quaternion.Slerp(orgRot, dstRot, t);
-            yield return null; // return here next frame
-        }
-        grapin.transform.parent = gameObject.transform;
-        grapin.transform.localPosition = grapinPos;
-        grapin.transform.localEulerAngles = new Vector3(270, 0, 0);*/
 
-        myNormal = normal; // update myNormal
-        GetComponent<Rigidbody>().isKinematic = false; // enable physics
-        jumping = false; // jumping to wall finished
+            /*for (float t = 0.0f; t < 1.0;)
+            {
+                t += Time.deltaTime;
+                transform.position = Vector3.Lerp(orgPos, dstPos, t);
+                transform.rotation = Quaternion.Slerp(orgRot, dstRot, t);
+                yield return null; // return here next frame
+            }
+            grapin.transform.parent = gameObject.transform;
+            grapin.transform.localPosition = grapinPos;
+            grapin.transform.localEulerAngles = new Vector3(270, 0, 0);*/
+
+            myNormal = normal; // update myNormal
+            GetComponent<Rigidbody>().isKinematic = false; // enable physics
+            jumping = false; // jumping to wall finished
+        }
+
+        yield return null;
     }
 
     public void GameOver()
