@@ -58,11 +58,11 @@ Shader "Unlit/shader_ground" {
             VertexOutput vert (VertexInput v) {
                 VertexOutput o = (VertexOutput)0;
                 o.uv0 = v.texcoord0;
-                float4 node_2292 = _Time + _TimeEditor;
+                float4 node_3733 = _Time + _TimeEditor;
                 float2 node_4421 = float2(mul(_Object2World, v.vertex).r,mul(_Object2World, v.vertex).b);
-                float2 node_9167 = (node_4421+node_2292.g*float2(1.3,4));
+                float2 node_9167 = (node_4421+node_3733.g*float2(1.3,4));
                 float4 node_4176 = tex2Dlod(_Tex_Cloud,float4(TRANSFORM_TEX(node_9167, _Tex_Cloud),0.0,0));
-                float2 node_9663 = (node_4421+node_2292.g*float2(2.7,-3));
+                float2 node_9663 = (node_4421+node_3733.g*float2(2.7,-3));
                 float4 node_4572 = tex2Dlod(_Tex_BigCloud,float4(TRANSFORM_TEX(node_9663, _Tex_BigCloud),0.0,0));
                 float4 node_6359 = _Time + _TimeEditor;
                 float4 node_3487 = tex2Dlod(_Tex_WaveCloud,float4(TRANSFORM_TEX(node_4421, _Tex_WaveCloud),0.0,0));
@@ -120,11 +120,11 @@ Shader "Unlit/shader_ground" {
             };
             VertexOutput vert (VertexInput v) {
                 VertexOutput o = (VertexOutput)0;
-                float4 node_5215 = _Time + _TimeEditor;
+                float4 node_4509 = _Time + _TimeEditor;
                 float2 node_4421 = float2(mul(_Object2World, v.vertex).r,mul(_Object2World, v.vertex).b);
-                float2 node_9167 = (node_4421+node_5215.g*float2(1.3,4));
+                float2 node_9167 = (node_4421+node_4509.g*float2(1.3,4));
                 float4 node_4176 = tex2Dlod(_Tex_Cloud,float4(TRANSFORM_TEX(node_9167, _Tex_Cloud),0.0,0));
-                float2 node_9663 = (node_4421+node_5215.g*float2(2.7,-3));
+                float2 node_9663 = (node_4421+node_4509.g*float2(2.7,-3));
                 float4 node_4572 = tex2Dlod(_Tex_BigCloud,float4(TRANSFORM_TEX(node_9663, _Tex_BigCloud),0.0,0));
                 float4 node_6359 = _Time + _TimeEditor;
                 float4 node_3487 = tex2Dlod(_Tex_WaveCloud,float4(TRANSFORM_TEX(node_4421, _Tex_WaveCloud),0.0,0));

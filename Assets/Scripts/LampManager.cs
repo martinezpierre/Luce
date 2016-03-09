@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class LampManager : MonoBehaviour {
 
@@ -18,7 +17,7 @@ public class LampManager : MonoBehaviour {
         instance = this;
     }
 
-    int nbLampLighted = 0;
+    public int nbLampLighted = 0;
 
     public void NewLampLighted(GameObject Lamp)
     {
