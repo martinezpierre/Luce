@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    [HideInInspector]
+    public Transform spawn = null;
 
     public float moveSpeed = 6f; // move speed
     float lerpSpeed = 10; // smoothing speed
@@ -47,6 +49,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        spawn = transform;
+
         aim = GameObject.Find("Aim").GetComponent<Image>();
         aim.enabled = false;
 
@@ -349,9 +353,49 @@ public class PlayerController : MonoBehaviour
     public void GameOver()
     {
         //Destroy(gameObject);
-        GameObject.Find("DeadScreen").GetComponent<Image>().enabled = true;
-        GameObject.Find("DeadScreen").transform.localScale = new Vector3(Screen.width, Screen.height, 0);
-        GameObject.Find("DeadText").GetComponent<Text>().enabled = true;
+        if (spawn)
+        {
+            StartCoroutine(FadeGameOver());
+        }
+        else
+        {
+        }
+    }
+
+    IEnumerator FadeGameOver()
+    {
+        enabled = false;
+
+        Image deadIm = GameObject.Find("DeadScreen").GetComponent<Image>();
+        //Text deadTx = GameObject.Find("DeadText").GetComponent<Text>();
+
+        deadIm.enabled = true;
+        deadIm.transform.localScale = new Vector3(Screen.width, Screen.height, 0);
+        //deadTx.enabled = true;
+
+        float i = 0;
+
+        for (i = 0f; i < 1; i += 0.05f)
+        {
+            deadIm.color = new Color(deadIm.color.r, deadIm.color.g, deadIm.color.b,i);
+           // deadTx.color = new Color(deadTx.color.r, deadTx.color.g, deadTx.color.b, i);
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        transform.position = spawn.position;
+        transform.rotation = spawn.rotation;
+
+        yield return new WaitForSeconds(0.1f);
+
+        for (i = 1f; i > 0; i -= 0.05f)
+        {
+            deadIm.color = new Color(deadIm.color.r, deadIm.color.g, deadIm.color.b, i);
+            //deadTx.color = new Color(deadTx.color.r, deadTx.color.g, deadTx.color.b, i);
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        enabled = true;
+
     }
 
 }
