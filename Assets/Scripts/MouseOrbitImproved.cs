@@ -38,7 +38,7 @@ public class MouseOrbitImproved : MonoBehaviour
 
         distanceCoef = 1f;
 
-        corpMaterial.SetFloat("_Transparent", distanceCoef);
+        corpMaterial.SetFloat("_opacity", distanceCoef);
     }
 
     bool correcting = false;
@@ -105,7 +105,7 @@ public class MouseOrbitImproved : MonoBehaviour
 
         distanceCoef = distance / distanceMax;
 
-        corpMaterial.SetFloat("_Transparent", distanceCoef);
+        corpMaterial.SetFloat("_opacity", distanceCoef);
         
         Vector3 negDistance = new Vector3(0.0f, 0.0f, -distance);
         Vector3 position = rotation * negDistance;
