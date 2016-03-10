@@ -104,7 +104,7 @@ Shader "Hidden/GlobalFog" {
 	{
 		half4 sceneColor = tex2D(_MainTex, i.uv);
 		float2 uvsky = float2(i.uv.x, 1 - i.uv.y);
-		//uvsky = i.uv;
+		uvsky = i.uv;
 		half4 skyboxColor = tex2D(_Skybox, uvsky);
 
 		// Reconstruct world space position & direction
