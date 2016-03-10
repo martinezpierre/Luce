@@ -2,14 +2,15 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour {
-    
+public class PlayerController : MonoBehaviour
+{
+
     public float moveSpeed = 6f; // move speed
-    float lerpSpeed  = 10; // smoothing speed
+    float lerpSpeed = 10; // smoothing speed
     float gravity = 10; // gravity acceleration
     bool isGrounded;
-    float deltaGround  = 0.2f; // character is grounded up to this distance
-    public float jumpRange  = .1f; // range to detect target wall
+    float deltaGround = 0.2f; // character is grounded up to this distance
+    public float jumpRange = .1f; // range to detect target wall
     public float GroundDetection = 0.5f;
 
     public float maxDistance = 100f;
@@ -17,7 +18,8 @@ public class PlayerController : MonoBehaviour {
     private Vector3 surfaceNormal; // current surface normal
     private Vector3 myNormal; // character normal
     private float distGround; // distance from character position to ground
-    [HideInInspector]public bool jumping = false; // flag &quot;I'm jumping to wall&quot;
+    [HideInInspector]
+    public bool jumping = false; // flag &quot;I'm jumping to wall&quot;
 
     private GameObject finder;
     private GameObject finderRear;
@@ -27,10 +29,10 @@ public class PlayerController : MonoBehaviour {
 
     [HideInInspector]
     public bool somethingFoward = false;
-    
+
     [HideInInspector]
     public static bool fpsView = false;
-    
+
     Vector3 grapinPos;
 
     public MouseLook BodyMouseLook;
@@ -40,7 +42,9 @@ public class PlayerController : MonoBehaviour {
     public Image aim;
 
     public bool canJump = true;
-   
+
+    public float hookSize = 10f;
+
     void Start()
     {
         aim = GameObject.Find("Aim").GetComponent<Image>();
@@ -49,7 +53,7 @@ public class PlayerController : MonoBehaviour {
         myNormal = transform.up; // normal starts as character up direction 
 
         GetComponent<Rigidbody>().freezeRotation = true; // disable physics rotation
-                                         // distance from transform.position to ground
+                                                         // distance from transform.position to ground
         distGround = GetComponentInChildren<CapsuleCollider>().bounds.extents.y - GetComponentInChildren<CapsuleCollider>().center.y;
 
         finder = transform.Find("finder").gameObject;
@@ -68,7 +72,7 @@ public class PlayerController : MonoBehaviour {
 
     public void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.tag == "Building" || other.gameObject.tag == "Floor")
+        if (other.gameObject.tag == "Building" || other.gameObject.tag == "Floor")
         {
             if (falling)
             {
@@ -85,10 +89,10 @@ public class PlayerController : MonoBehaviour {
     {
 
         if (jumping || falling) return;  // abort Update while jumping to a wall
-        
+
         Ray ray = new Ray();
         RaycastHit hit;
-        
+
         aim.transform.position = Input.mousePosition;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance))
         {
@@ -114,7 +118,7 @@ public class PlayerController : MonoBehaviour {
                 CameraMouseLook.enabled = true;
             }
         }
-        else if(!BodyMouseLook.enabled)
+        else if (!BodyMouseLook.enabled)
         {
             BodyMouseLook.enabled = true;
             CameraMouseLook.enabled = false;
@@ -122,7 +126,7 @@ public class PlayerController : MonoBehaviour {
             CameraMouseLook.transform.localEulerAngles = Vector3.zero;
         }
 
-            if (Input.GetAxis("Vertical") < 0)
+        if (Input.GetAxis("Vertical") < 0)
         {
             ray = new Ray(transform.position, -transform.forward);
         }
@@ -135,7 +139,7 @@ public class PlayerController : MonoBehaviour {
         { // wall ahead?
             Debug.Log("jumping : ");
             somethingFoward = true;
-            StartCoroutine(JumpToWall(hit.point, hit.normal,false)); // yes: jump to the wall
+            StartCoroutine(JumpToWall(hit.point, hit.normal, false)); // yes: jump to the wall
         }
         else
         {
@@ -151,11 +155,11 @@ public class PlayerController : MonoBehaviour {
                 {
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rHit, maxDistance))
                     {
-                        if(rHit.transform.gameObject.tag == "Building")
+                        if (rHit.transform.gameObject.tag == "Building")
                         {
                             StartCoroutine(JumpToWall(rHit.point, rHit.normal, true));
                         }
-                        else if(rHit.transform.gameObject.tag == "Hookable")
+                        else if (rHit.transform.gameObject.tag == "Hookable")
                         {
                             StartCoroutine(Hook(rHit.point, rHit.normal));
                         }
@@ -164,7 +168,7 @@ public class PlayerController : MonoBehaviour {
                 else
                 {
                     Vector3 CameraCenter = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, Camera.main.nearClipPlane));
-                    if (Physics.Raycast(CameraCenter, transform.forward,out rHit, maxDistance))
+                    if (Physics.Raycast(CameraCenter, transform.forward, out rHit, maxDistance))
                     {
                         fpsView = !fpsView;
                         transform.Find("CameraFPS").GetComponent<Camera>().enabled = !transform.Find("CameraFPS").GetComponent<Camera>().enabled;
@@ -175,19 +179,20 @@ public class PlayerController : MonoBehaviour {
 
             }
         }
-        
+
         // update surface normal and isGrounded:
         ray = new Ray(transform.position, -myNormal); // cast ray downwards
 
         if (Physics.Raycast(ray, out hit, GroundDetection))
         { // use it to update myNormal and isGrounded
+
             isGrounded = hit.distance <= distGround + deltaGround;
 
             if (isGrounded && hit.transform.gameObject.tag == "Floor")
             {
-               GameOver();
+                GameOver();
             }
-            else if(isGrounded && hit.transform.gameObject.tag == "Unpraticable")
+            else if (isGrounded && hit.transform.gameObject.tag == "Unpraticable")
             {
                 myNormal = new Vector3(0, 1, 0);
                 falling = true;
@@ -197,12 +202,9 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
-
             isGrounded = false;
 
             Vector3 newforward = Vector3.zero;
-
-            Debug.Log("ok");
 
             ray = new Ray();
             if (Input.GetAxis("Vertical") < 0)
@@ -215,17 +217,18 @@ public class PlayerController : MonoBehaviour {
                 newforward = -0.5f * (transform.forward + surfaceNormal);
                 ray = new Ray(finder.transform.position, newforward);
             }
-            
+
             if (Physics.Raycast(ray, out hit, 100) && (hit.transform.gameObject.tag == "Building" || hit.transform.gameObject.tag == "Unpraticable"))
             { // wall ahead?
 
                 Debug.DrawLine(finder.transform.position, hit.point, Color.red, 100f);
-                StartCoroutine(JumpToWall(hit.point, hit.normal,false)); // yes: jump to the wall
+                StartCoroutine(JumpToWall(hit.point, hit.normal, false)); // yes: jump to the wall
             }
 
         }
 
         myNormal = Vector3.Lerp(myNormal, surfaceNormal, lerpSpeed * Time.deltaTime);
+
         // find forward direction with new myNormal:
         var myForward = Vector3.Cross(transform.right, myNormal);
         // align character to the new myNormal while keeping the forward direction:
@@ -292,13 +295,15 @@ public class PlayerController : MonoBehaviour {
         }
 
         yield return null;
-        
+
     }
 
     IEnumerator Hook(Vector3 point, Vector3 normal)
     {
         if (canJump)
         {
+            ConfigurableJoint cJ = grapin.GetComponent<ConfigurableJoint>();
+
             // jump to wall 
             jumping = true; // signal it's jumping to wall
             GetComponent<Rigidbody>().isKinematic = true; // disable physics while jumping
@@ -306,8 +311,12 @@ public class PlayerController : MonoBehaviour {
             Vector3 orgPos = transform.position;
             //Quaternion orgRot = transform.rotation;
             Vector3 dstPos = point + normal * distGround; // will jump to 0.5 above wall
-                                                          //Vector3 myForward = Vector3.Cross(transform.right, normal);
-                                                          //Quaternion dstRot = Quaternion.LookRotation(myForward, normal);
+
+            SoftJointLimit sJL = new SoftJointLimit();
+
+            sJL.limit = Vector3.Distance(orgPos, dstPos);
+
+            cJ.linearLimit = sJL;
 
             for (float t = 0.0f; t < 1.0;)
             {
@@ -315,21 +324,22 @@ public class PlayerController : MonoBehaviour {
                 grapin.transform.position = Vector3.Lerp(orgPos, dstPos, t);
                 yield return null; // return here next frame
             }
-            grapin.transform.parent = null;
 
-            /*for (float t = 0.0f; t < 1.0;)
-            {
-                t += Time.deltaTime;
-                transform.position = Vector3.Lerp(orgPos, dstPos, t);
-                transform.rotation = Quaternion.Slerp(orgRot, dstRot, t);
-                yield return null; // return here next frame
-            }
-            grapin.transform.parent = gameObject.transform;
-            grapin.transform.localPosition = grapinPos;
-            grapin.transform.localEulerAngles = new Vector3(270, 0, 0);*/
+
+            grapin.transform.parent = null;
 
             myNormal = normal; // update myNormal
             GetComponent<Rigidbody>().isKinematic = false; // enable physics
+
+            while (sJL.limit > hookSize)
+            {
+                sJL.limit -= 1;
+
+                cJ.linearLimit = sJL;
+
+                yield return null;
+            }
+
             jumping = false; // jumping to wall finished
         }
 
@@ -340,8 +350,8 @@ public class PlayerController : MonoBehaviour {
     {
         //Destroy(gameObject);
         GameObject.Find("DeadScreen").GetComponent<Image>().enabled = true;
-        GameObject.Find("DeadScreen").transform.localScale = new Vector3(Screen.width,Screen.height,0);
+        GameObject.Find("DeadScreen").transform.localScale = new Vector3(Screen.width, Screen.height, 0);
         GameObject.Find("DeadText").GetComponent<Text>().enabled = true;
     }
-    
+
 }
