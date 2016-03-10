@@ -19,7 +19,13 @@ namespace RootMotion.Demos {
 		void Update() {
 			// Smoke
 			float inputMag = mechSpiderController.inputVector.magnitude;
-			particles.emissionRate = Mathf.Clamp(inputMag * 50, 30, 50);
+
+            var em = particles.emission;
+            var rate = new ParticleSystem.MinMaxCurve();
+            rate.constantMax = Mathf.Clamp(inputMag * 50, 30, 50);
+            em.rate = rate;
+
+            //particles.emissionRate = Mathf.Clamp(inputMag * 50, 30, 50);
 			particles.startColor = new Color (particles.startColor.r, particles.startColor.g, particles.startColor.b, Mathf.Clamp(inputMag, 0.4f, 1f));
 		}
 	}

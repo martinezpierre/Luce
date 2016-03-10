@@ -28,11 +28,11 @@ public class MouseLook : MonoBehaviour
             Debug.Log("click");
             aiming = true;
         }
-        else if (Input.GetMouseButtonUp(1))
+        else /*if (Input.GetMouseButtonUp(1))*/
         {
             aiming = false;
         }
-
+        
         if (aiming || (PlayerController.fpsView && name!= "CameraFPS")) return;
 
         if (axes == RotationAxes.MouseXAndY)
