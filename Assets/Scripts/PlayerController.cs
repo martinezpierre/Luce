@@ -47,8 +47,14 @@ public class PlayerController : MonoBehaviour
 
     public float hookSize = 10f;
 
+    Animator aC;
+
+    float sizeZ;
+
     void Start()
     {
+        aC = GetComponentInChildren<Animator>();
+        
         spawn = transform;
 
         aim = GameObject.Find("Aim").GetComponent<Image>();
@@ -60,12 +66,14 @@ public class PlayerController : MonoBehaviour
                                                          // distance from transform.position to ground
         distGround = GetComponentInChildren<CapsuleCollider>().bounds.extents.y - GetComponentInChildren<CapsuleCollider>().center.y;
 
+        sizeZ = GetComponentInChildren<CapsuleCollider>().bounds.extents.z;
+
         finder = transform.Find("finder").gameObject;
         finderRear = transform.Find("finderRear").gameObject;
         grapin = transform.Find("grapin").gameObject;
 
         grapinPos = grapin.transform.localPosition;
-
+        
     }
 
     void FixedUpdate()
@@ -141,9 +149,10 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, jumpRange) && (hit.transform.gameObject.tag == "Building" || hit.transform.gameObject.tag == "Unpraticable"))
         { // wall ahead?
-            Debug.Log("jumping : ");
             somethingFoward = true;
-            StartCoroutine(JumpToWall(hit.point, hit.normal, false)); // yes: jump to the wall
+            StartCoroutine(JumpToWall(hit.point, hit.normal, false, true)); // yes: jump to the wall
+
+            Debug.Log(hit.normal + " " + myNormal);
         }
         else
         {
@@ -161,7 +170,7 @@ public class PlayerController : MonoBehaviour
                     {
                         if (rHit.transform.gameObject.tag == "Building")
                         {
-                            StartCoroutine(JumpToWall(rHit.point, rHit.normal, true));
+                            StartCoroutine(JumpToWall(rHit.point, rHit.normal, true, false));
                         }
                         else if (rHit.transform.gameObject.tag == "Hookable")
                         {
@@ -177,7 +186,7 @@ public class PlayerController : MonoBehaviour
                         fpsView = !fpsView;
                         transform.Find("CameraFPS").GetComponent<Camera>().enabled = !transform.Find("CameraFPS").GetComponent<Camera>().enabled;
                         transform.Find("Main Camera").GetComponent<Camera>().enabled = !transform.Find("Main Camera").GetComponent<Camera>().enabled;
-                        StartCoroutine(JumpToWall(rHit.point, rHit.normal, true));
+                        StartCoroutine(JumpToWall(rHit.point, rHit.normal, true,false));
                     }
                 }
 
@@ -226,7 +235,7 @@ public class PlayerController : MonoBehaviour
             { // wall ahead?
 
                 Debug.DrawLine(finder.transform.position, hit.point, Color.red, 100f);
-                StartCoroutine(JumpToWall(hit.point, hit.normal, false)); // yes: jump to the wall
+                StartCoroutine(JumpToWall(hit.point, hit.normal, false,false)); // yes: jump to the wall
             }
 
         }
@@ -243,7 +252,10 @@ public class PlayerController : MonoBehaviour
         {
             transform.Translate(0, 0, Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime);
             transform.Translate(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, 0, 0);
+            
         }
+
+        aC.SetBool("Walk", Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal")) > 0);
 
         if (!isGrounded)
         {
@@ -251,7 +263,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator JumpToWall(Vector3 point, Vector3 normal, bool smooth)
+    IEnumerator JumpToWall(Vector3 point, Vector3 normal, bool smooth, bool convex)
     {
         if (canJump)
         {
@@ -261,10 +273,24 @@ public class PlayerController : MonoBehaviour
 
             Vector3 orgPos = transform.position;
             Quaternion orgRot = transform.rotation;
-            Vector3 dstPos = point + normal * distGround; // will jump to 0.5 above wall
+
+            Vector3 dstPos = Vector3.zero;
+
+            if (convex)
+            {
+                dstPos = point + normal * distGround + myNormal * sizeZ * 3f; // will jump to 0.5 above wall
+            }
+            else
+            {
+                dstPos = point + normal * distGround; // will jump to 0.5 above wall
+            }
+
+
+
             Vector3 myForward = Vector3.Cross(transform.right, normal);
             Quaternion dstRot = Quaternion.LookRotation(myForward, normal);
 
+            Debug.Log(normal + " " + sizeZ + " " + distGround);
 
             //Debug.Log(grapinPos+" -> "+dstPos);
 
@@ -296,9 +322,17 @@ public class PlayerController : MonoBehaviour
             myNormal = normal; // update myNormal
             GetComponent<Rigidbody>().isKinematic = false; // enable physics
             jumping = false; // jumping to wall finished
+
+
+            Camera.main.GetComponent<MouseOrbitImproved>().aiming = false;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            aim.enabled = false;
+            
         }
 
         yield return null;
+
 
     }
 

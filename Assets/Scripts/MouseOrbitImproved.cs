@@ -42,7 +42,7 @@ public class MouseOrbitImproved : MonoBehaviour
     }
 
     bool correcting = false;
-    bool aiming = false;
+    [HideInInspector]public bool aiming = false;
     
     void LateUpdate()
     {

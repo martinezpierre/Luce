@@ -28,8 +28,9 @@ public class MouseLook : MonoBehaviour
             Debug.Log("click");
             aiming = true;
         }
-        else /*if (Input.GetMouseButtonUp(1))*/
+        else if (Input.GetMouseButtonUp(1))
         {
+            Debug.Log("clickUp");
             aiming = false;
         }
         
