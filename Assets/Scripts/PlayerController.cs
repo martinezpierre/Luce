@@ -325,9 +325,7 @@ public class PlayerController : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(orgRot, dstRot, t);
                 yield return null; // return here next frame
             }
-
-
-
+            
             if (smooth)
             {
 
