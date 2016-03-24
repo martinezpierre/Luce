@@ -2,6 +2,7 @@
 using UnityEditor;
 using System.Collections.Generic;
 
+[SelectionBase]
 [ExecuteInEditMode]
 [RequireComponent(typeof(BoxCollider))]
 public class Building : MonoBehaviour {
