@@ -49,8 +49,11 @@ public class LimbController : MonoBehaviour {
                 target = highPos.transform.position;
             }
 
-            float step = speed * Time.deltaTime;
-            feet.transform.position = Vector3.MoveTowards(feet.transform.position, target, step);
+            /*if(!(up && highPos.transform.localPosition.x < feet.transform.localPosition.x))
+            {*/
+                float step = speed * Time.deltaTime;
+                feet.transform.position = Vector3.MoveTowards(feet.transform.position, target, step);
+            //}
             
             if(Vector3.Distance(feet.transform.position, target) <= 0.01f)
             {
