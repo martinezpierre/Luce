@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: a6e68cf8800f81c45a672f6220ebc419
+timeCreated: 1458902930
+licenseType: Pro
+ShaderImporter:
+  defaultTextures:
+  - _darkmattertexture: {fileID: 2800000, guid: b8fd60abc83f85b439f776406f9a632b,
+      type: 3}
+  - _mvtundertexture: {fileID: 2800000, guid: 28c7aad1372ff114b90d330f8a2dd938, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
