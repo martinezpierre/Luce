@@ -26,6 +26,7 @@ public class WireInspector : Editor {
             Refresh(wire);
         }
         GUILayout.EndHorizontal();
+        EditorUtility.SetDirty(wire);
     }
 
     void Refresh(Wire wire) {
@@ -43,22 +44,20 @@ public class WireInspector : Editor {
             Handles.DrawLine(mp, p1);
         }
 
-        int lineSteps = (int)(Vector3.Distance(p0, p1) / wire.stepSize);
-        wire.render.SetVertexCount(lineSteps + 2);
-        wire.render.SetWidth(wire.size, wire.size);
-        Vector3 lineStart = wire.GetPoint(0);
+        wire.Draw();
 
-        for (int i = 0; i <= lineSteps; i++) {
+        if (wire.showStructure) {
+            int lineSteps = (int)(Vector3.Distance(p0, p1) / wire.stepSize);
+            Vector3 lineStart = wire.GetPoint(0);
 
-            Vector3 lineEnd = wire.GetPoint(i / (float)lineSteps);
-            wire.render.SetPosition(i, lineStart);
-            wire.render.SetPosition(i + 1, lineEnd);
-
-            if (wire.showStructure) {
-                Handles.color = Color.white;
-                Handles.DrawLine(lineStart, lineEnd);
+            for (int i = 0; i <= lineSteps; i++) {
+                Vector3 lineEnd = wire.GetPoint(i / (float)lineSteps);
+                if (wire.showStructure) {
+                    Handles.color = Color.white;
+                    Handles.DrawLine(lineStart, lineEnd);
+                }
+                lineStart = lineEnd;
             }
-            lineStart = lineEnd;
         }
 
         wire.mp = handleTransform.InverseTransformPoint(mp);
