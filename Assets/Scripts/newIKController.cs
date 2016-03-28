@@ -8,13 +8,14 @@ public class newIKController : MonoBehaviour {
 
     public GameObject mustFollow;
 
+    public bool lookAt = true;
+
     public float distFollow = 2f;
 
     public float moveSpeed = 5f;
 
 	// Use this for initialization
 	void Start () {
-        //leftLimb.StartLimbMove();
         StartCoroutine(PrepareLimb(leftLimb));
     }
 	
@@ -24,9 +25,9 @@ public class newIKController : MonoBehaviour {
         {
             transform.position = Vector3.MoveTowards(transform.position, mustFollow.transform.position, Time.deltaTime * moveSpeed);
         }
-        if (mustFollow)
+        if (mustFollow && lookAt)
         {
-            transform.LookAt(mustFollow.transform);
+            transform.LookAt(mustFollow.transform,mustFollow.transform.up);
         }
 	}
 
@@ -35,22 +36,26 @@ public class newIKController : MonoBehaviour {
         if(limb == rightLimb.gameObject)
         {
             StartCoroutine(PrepareLimb(leftLimb));
-            //leftLimb.StartLimbMove();
         }
         else
         {
             StartCoroutine(PrepareLimb(rightLimb));
-            //rightLimb.StartLimbMove();
         }
     }
 
     IEnumerator PrepareLimb(LimbController limb)
     {
-        while(Mathf.Abs(Input.GetAxis("Vertical")) < 0.1f && Mathf.Abs(Input.GetAxis("Horizontal")) < 0.1f)
+        Debug.Log("prepareLimb");
+
+        /*while(Mathf.Abs(Input.GetAxis("Vertical")) < 0.1f && Mathf.Abs(Input.GetAxis("Horizontal")) < 0.1f)
         {
             yield return null;
-        }
+        }*/
+
+        Debug.Log("Limb prepared");
 
         limb.StartLimbMove();
+
+        yield return null;
     }
 }

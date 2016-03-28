@@ -19,7 +19,7 @@ public class LimbController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         
-        feetHeigh = feet.GetComponent<BoxCollider>().bounds.extents.y;
+        feetHeigh = feet.GetComponent<BoxCollider>() ? feet.GetComponent<BoxCollider>().bounds.extents.y : 0;
 
         Debug.Log(feetHeigh);
 	}
@@ -65,7 +65,9 @@ public class LimbController : MonoBehaviour {
 
                     if (Physics.Raycast(feet.transform.position, direction, out hit, maxLength) && hit.transform.tag == "Building")
                     {
-                        target = hit.point + controller.transform.up * feetHeigh;
+                        target = hit.point + /*controller.transform.up*/ hit.normal * feetHeigh;
+                        
+                        //feet.transform.localEulerAngles
 
                         up = false;
                     }
