@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c04fc7aca61e91e4b8d570c107785667
-timeCreated: 1457644074
+guid: 9006fa56711feb44dbb1421e0f220efd
+timeCreated: 1458902408
 licenseType: Pro
 ShaderImporter:
   defaultTextures:
-  - _nuage: {fileID: 2800000, guid: 9664107dab8b7eb47b60b15d908bf7d6, type: 3}
+  - _node_31: {fileID: 2800000, guid: 28c7aad1372ff114b90d330f8a2dd938, type: 3}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
