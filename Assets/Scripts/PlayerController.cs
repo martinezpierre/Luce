@@ -267,16 +267,6 @@ public class PlayerController : MonoBehaviour
     {
         if (canJump)
         {
-            Transform cameraParent = CameraMouseLook.transform/*.GetChild(0)*/;
-            
-            Vector3 cameraOriginPos = cameraParent.localPosition;
-            Quaternion cameraOriginRot = cameraParent.localRotation;
-
-            if (smooth)
-            {
-                cameraParent.parent = null;
-            }
-
             // jump to wall 
             jumping = true; // signal it's jumping to wall
             GetComponent<Rigidbody>().isKinematic = true; // disable physics while jumping
@@ -325,26 +315,6 @@ public class PlayerController : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(orgRot, dstRot, t);
                 yield return null; // return here next frame
             }
-            
-            if (smooth)
-            {
-
-
-                cameraParent.parent = /*CameraMouseLook.*/transform;
-                //cameraParent.transform.localEulerAngles = Vector3.zero;
-
-                Vector3 cameraOrgPos = cameraParent.localPosition;
-                Quaternion cameraOrgRot = cameraParent.localRotation;
-
-                for (float t = 0.0f; t < 1.0;)
-                {
-                    t += Time.deltaTime;
-                    cameraParent.localPosition = Vector3.Lerp(cameraOrgPos, cameraOriginPos, t);
-                    cameraParent.localRotation = Quaternion.Slerp(cameraOrgRot, cameraOriginRot, t);
-                    yield return null; // return here next frame
-                }
-            }
-
             grapin.transform.parent = gameObject.transform;
             grapin.transform.localPosition = grapinPos;
             grapin.transform.localEulerAngles = new Vector3(270, 0, 0);
@@ -358,8 +328,7 @@ public class PlayerController : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             aim.enabled = false;
-
-
+            
         }
 
         yield return null;

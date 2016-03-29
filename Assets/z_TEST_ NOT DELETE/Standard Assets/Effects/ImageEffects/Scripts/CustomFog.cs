@@ -27,7 +27,6 @@ namespace UnityStandardAssets.ImageEffects
             RenderSettings.fogStartDistance = startDistance;
             RenderSettings.fogEndDistance = endDistance;
 
-
             if (gradientTex == null)
             {
                 gradientTex = new Texture2D(512, 1);
