@@ -2,7 +2,6 @@
 using UnityEditor;
 using System.Collections.Generic;
 
-[SelectionBase]
 [ExecuteInEditMode]
 [RequireComponent(typeof(BoxCollider))]
 public class Building : MonoBehaviour {
@@ -10,6 +9,13 @@ public class Building : MonoBehaviour {
     [System.Serializable]
     public struct EdgePrefab {
         public GameObject neutral, left, right, full;
+    }
+
+    [System.Serializable]
+    public struct FaceType {
+        public Material material;
+        [Range(1,10)]
+        public int floors;
     }
 
     public IntVector3 size;
@@ -20,17 +26,39 @@ public class Building : MonoBehaviour {
     public EdgePrefab edgePrefab;
     [Range(0, 1)]
     public float[] edges;
+    public FaceType[] faceTypes;
     public bool lockStructure;
 
     float faceSize = 10;
     BoxCollider col;
+    Material[] materials;
 
     void Start() {
         col = GetComponent<BoxCollider>();
         if (!lockStructure) Build();
     }
 
+    void InitMaterials() {
+        materials = new Material[size.y];
+        int n = 0;
+
+        for (int i = 0; i < faceTypes.Length; i++) {
+            for (int j = 0; j < faceTypes[i].floors; j++) {
+                materials[n] = faceTypes[i].material;
+                if (n == size.y - 1) break;
+                else n++;
+            }
+            if (n == size.y - 1) break;
+        }
+        for (int i = 0; i < size.y; i++) {
+            if (materials[i] == null)
+                materials[i] = faceTypes[faceTypes.Length-1].material;
+        }
+    }
+
     public void Build() {
+        if (faceTypes.Length > 0) InitMaterials();
+
         var children = new List<GameObject>();
         foreach (Transform child in transform) children.Add(child.gameObject);
         children.ForEach(child => DestroyImmediate(child));
@@ -70,7 +98,8 @@ public class Building : MonoBehaviour {
                     face.transform.Rotate(0, rot, 0);
                 }
                 face.transform.parent = transform;
-             }
+                if (faceTypes.Length > 0) face.SetMaterial(materials[j]);
+            }
         }
 
     }
@@ -82,6 +111,10 @@ public class Building : MonoBehaviour {
                 face.transform.position = new Vector3(o.x + j * faceSize, o.y, o.z + i * faceSize);
                 face.transform.Rotate(rot, 0, 0);
                 face.transform.parent = transform;
+                if (faceTypes.Length > 0) {
+                    if (rot == 90) face.SetMaterial(materials[0]);
+                    else  face.SetMaterial(materials[size.y - 1]);
+                }
             }
         }
     }
