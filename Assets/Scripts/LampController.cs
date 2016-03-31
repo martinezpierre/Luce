@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Light))]
 public class LampController : MonoBehaviour
 {
 
@@ -12,7 +13,7 @@ public class LampController : MonoBehaviour
 
     void Awake()
     {
-        halo = GetComponentInChildren<Light>();
+        halo = GetComponent<Light>();
         intensity = halo.intensity;
         halo.intensity = 0;
         random = Random.Range(0.0f, 65535.0f);

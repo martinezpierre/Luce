@@ -28,13 +28,15 @@ public class MouseLook : MonoBehaviour
             Debug.Log("click");
             aiming = true;
         }
-        else if (Input.GetMouseButtonUp(1))
+        else if (Input.GetMouseButtonUp(1) || ((Input.GetAxis("Vertical") != 0f || Input.GetAxis("Horizontal") != 0f) && tag == "Player"))
         {
             Debug.Log("clickUp");
             aiming = false;
         }
-        
+
+
         if (aiming || (PlayerController.fpsView && name!= "CameraFPS")) return;
+
 
         if (axes == RotationAxes.MouseXAndY)
         {

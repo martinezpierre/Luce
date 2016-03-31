@@ -12,9 +12,8 @@ public class Map : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    if(Vector3.Distance(player.transform.position,transform.position) < 5f)
+	    if(player && Vector3.Distance(player.transform.position,transform.position) < 5f)
         {
-            Debug.Log("okokok");
             player.GetComponentInParent<PlayerController>().spawn = transform;
         }
 	}
