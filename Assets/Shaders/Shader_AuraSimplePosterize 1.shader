@@ -1,14 +1,12 @@
 // Shader created with Shader Forge v1.26 
 // Shader Forge (c) Neat Corporation / Joachim Holmer - http://www.acegikmo.com/shaderforge/
 // Note: Manually altering this data may prevent you from opening it in Shader Forge
-/*SF_DATA;ver:1.26;sub:START;pass:START;ps:flbk:,iptp:0,cusa:False,bamd:0,lico:1,lgpr:1,limd:0,spmd:1,trmd:0,grmd:0,uamb:True,mssp:True,bkdf:True,hqlp:False,rprd:False,enco:False,rmgx:True,rpth:0,vtps:0,hqsc:True,nrmq:1,nrsp:0,vomd:0,spxs:False,tesm:0,olmd:1,culm:0,bsrc:0,bdst:1,dpts:2,wrdp:True,dith:0,rfrpo:True,rfrpn:Refraction,coma:15,ufog:False,aust:True,igpj:False,qofs:0,qpre:1,rntp:1,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,stcl:False,stva:128,stmr:255,stmw:255,stcp:6,stps:0,stfa:0,stfz:0,ofsf:0,ofsu:0,f2p0:False,fnsp:False,fnfb:False;n:type:ShaderForge.SFN_Final,id:0,x:34436,y:31973,varname:node_0,prsc:2|emission-2977-RGB,custl-2650-OUT;n:type:ShaderForge.SFN_Tex2d,id:82,x:34041,y:31345,ptovrint:False,ptlb:Diffuse,ptin:_Diffuse,varname:_Diffuse,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:8993b617f08498f43adcbd90697f1c5d,ntxv:0,isnm:False|UVIN-272-UVOUT;n:type:ShaderForge.SFN_Tex2d,id:83,x:34041,y:31549,ptovrint:False,ptlb:Normals,ptin:_Normals,varname:_Normals,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:c6dfb00dbee6bc044a8a3bb22e56e064,ntxv:3,isnm:True|UVIN-272-UVOUT;n:type:ShaderForge.SFN_TexCoord,id:272,x:33825,y:31513,varname:node_272,prsc:2,uv:0;n:type:ShaderForge.SFN_Tex2d,id:2977,x:34336,y:31768,ptovrint:False,ptlb:texture object,ptin:_textureobject,varname:node_2977,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:1ca1f535a383c0343a6f4ea0655c37db,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Posterize,id:2650,x:33921,y:32075,varname:node_2650,prsc:2|IN-5574-OUT,STPS-5303-OUT;n:type:ShaderForge.SFN_LightAttenuation,id:5574,x:33707,y:32046,varname:node_5574,prsc:2;n:type:ShaderForge.SFN_ValueProperty,id:5303,x:33707,y:32237,ptovrint:False,ptlb:posterize steps,ptin:_posterizesteps,varname:node_5303,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,v1:2;proporder:82-83-2977-5303;pass:END;sub:END;*/
+/*SF_DATA;ver:1.26;sub:START;pass:START;ps:flbk:,iptp:0,cusa:False,bamd:0,lico:1,lgpr:1,limd:0,spmd:1,trmd:0,grmd:0,uamb:True,mssp:True,bkdf:True,hqlp:False,rprd:False,enco:False,rmgx:True,rpth:0,vtps:0,hqsc:True,nrmq:1,nrsp:0,vomd:0,spxs:False,tesm:0,olmd:1,culm:0,bsrc:0,bdst:1,dpts:2,wrdp:True,dith:0,rfrpo:True,rfrpn:Refraction,coma:15,ufog:False,aust:True,igpj:False,qofs:0,qpre:1,rntp:1,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,stcl:False,stva:128,stmr:255,stmw:255,stcp:6,stps:0,stfa:0,stfz:0,ofsf:0,ofsu:0,f2p0:False,fnsp:False,fnfb:False;n:type:ShaderForge.SFN_Final,id:0,x:34436,y:31973,varname:node_0,prsc:2|emission-2977-RGB,custl-6188-OUT;n:type:ShaderForge.SFN_Tex2d,id:2977,x:33620,y:31886,ptovrint:False,ptlb:texture object,ptin:_textureobject,varname:node_2977,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:270c2702b346ad04bb4a3e12936a52ed,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Posterize,id:2650,x:33620,y:32131,varname:node_2650,prsc:2|IN-9572-OUT,STPS-5303-OUT;n:type:ShaderForge.SFN_LightAttenuation,id:5574,x:33984,y:32383,varname:node_5574,prsc:2;n:type:ShaderForge.SFN_ValueProperty,id:5303,x:33421,y:32299,ptovrint:False,ptlb:posterize steps,ptin:_posterizesteps,varname:node_5303,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,v1:3;n:type:ShaderForge.SFN_NormalVector,id:1996,x:33275,y:32065,prsc:2,pt:False;n:type:ShaderForge.SFN_LightVector,id:6200,x:33275,y:32218,varname:node_6200,prsc:2;n:type:ShaderForge.SFN_Dot,id:9572,x:33435,y:32121,varname:node_9572,prsc:2,dt:0|A-1996-OUT,B-6200-OUT;n:type:ShaderForge.SFN_Multiply,id:6188,x:34240,y:32194,varname:node_6188,prsc:2|A-4492-RGB,B-1063-OUT,C-2039-OUT,D-5574-OUT;n:type:ShaderForge.SFN_Multiply,id:1063,x:33817,y:32116,varname:node_1063,prsc:2|A-2977-RGB,B-2650-OUT;n:type:ShaderForge.SFN_Add,id:2039,x:33984,y:32238,varname:node_2039,prsc:2|A-1063-OUT,B-8585-RGB;n:type:ShaderForge.SFN_AmbientLight,id:8585,x:33817,y:32261,varname:node_8585,prsc:2;n:type:ShaderForge.SFN_LightColor,id:4492,x:33972,y:32019,varname:node_4492,prsc:2;proporder:2977-5303;pass:END;sub:END;*/
 
 Shader "Luce/AuraSimplePosterize" {
     Properties {
-        _Diffuse ("Diffuse", 2D) = "white" {}
-        _Normals ("Normals", 2D) = "bump" {}
         _textureobject ("texture object", 2D) = "white" {}
-        _posterizesteps ("posterize steps", Float ) = 2
+        _posterizesteps ("posterize steps", Float ) = 3
     }
     SubShader {
         Tags {
@@ -35,28 +33,38 @@ Shader "Luce/AuraSimplePosterize" {
             uniform float _posterizesteps;
             struct VertexInput {
                 float4 vertex : POSITION;
+                float3 normal : NORMAL;
                 float2 texcoord0 : TEXCOORD0;
             };
             struct VertexOutput {
                 float4 pos : SV_POSITION;
                 float2 uv0 : TEXCOORD0;
-                LIGHTING_COORDS(1,2)
+                float4 posWorld : TEXCOORD1;
+                float3 normalDir : TEXCOORD2;
+                LIGHTING_COORDS(3,4)
             };
             VertexOutput vert (VertexInput v) {
                 VertexOutput o = (VertexOutput)0;
                 o.uv0 = v.texcoord0;
+                o.normalDir = UnityObjectToWorldNormal(v.normal);
+                o.posWorld = mul(_Object2World, v.vertex);
+                float3 lightColor = _LightColor0.rgb;
                 o.pos = mul(UNITY_MATRIX_MVP, v.vertex );
                 TRANSFER_VERTEX_TO_FRAGMENT(o)
                 return o;
             }
             float4 frag(VertexOutput i) : COLOR {
+                i.normalDir = normalize(i.normalDir);
+                float3 normalDirection = i.normalDir;
+                float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
+                float3 lightColor = _LightColor0.rgb;
 ////// Lighting:
                 float attenuation = LIGHT_ATTENUATION(i);
 ////// Emissive:
                 float4 _textureobject_var = tex2D(_textureobject,TRANSFORM_TEX(i.uv0, _textureobject));
                 float3 emissive = _textureobject_var.rgb;
-                float node_2650 = floor(attenuation * _posterizesteps) / (_posterizesteps - 1);
-                float3 finalColor = emissive + float3(node_2650,node_2650,node_2650);
+                float3 node_1063 = (_textureobject_var.rgb*floor(dot(i.normalDir,lightDirection) * _posterizesteps) / (_posterizesteps - 1));
+                float3 finalColor = emissive + (_LightColor0.rgb*node_1063*(node_1063+UNITY_LIGHTMODEL_AMBIENT.rgb)*attenuation);
                 return fixed4(finalColor,1);
             }
             ENDCG
@@ -83,25 +91,36 @@ Shader "Luce/AuraSimplePosterize" {
             uniform float _posterizesteps;
             struct VertexInput {
                 float4 vertex : POSITION;
+                float3 normal : NORMAL;
                 float2 texcoord0 : TEXCOORD0;
             };
             struct VertexOutput {
                 float4 pos : SV_POSITION;
                 float2 uv0 : TEXCOORD0;
-                LIGHTING_COORDS(1,2)
+                float4 posWorld : TEXCOORD1;
+                float3 normalDir : TEXCOORD2;
+                LIGHTING_COORDS(3,4)
             };
             VertexOutput vert (VertexInput v) {
                 VertexOutput o = (VertexOutput)0;
                 o.uv0 = v.texcoord0;
+                o.normalDir = UnityObjectToWorldNormal(v.normal);
+                o.posWorld = mul(_Object2World, v.vertex);
+                float3 lightColor = _LightColor0.rgb;
                 o.pos = mul(UNITY_MATRIX_MVP, v.vertex );
                 TRANSFER_VERTEX_TO_FRAGMENT(o)
                 return o;
             }
             float4 frag(VertexOutput i) : COLOR {
+                i.normalDir = normalize(i.normalDir);
+                float3 normalDirection = i.normalDir;
+                float3 lightDirection = normalize(lerp(_WorldSpaceLightPos0.xyz, _WorldSpaceLightPos0.xyz - i.posWorld.xyz,_WorldSpaceLightPos0.w));
+                float3 lightColor = _LightColor0.rgb;
 ////// Lighting:
                 float attenuation = LIGHT_ATTENUATION(i);
-                float node_2650 = floor(attenuation * _posterizesteps) / (_posterizesteps - 1);
-                float3 finalColor = float3(node_2650,node_2650,node_2650);
+                float4 _textureobject_var = tex2D(_textureobject,TRANSFORM_TEX(i.uv0, _textureobject));
+                float3 node_1063 = (_textureobject_var.rgb*floor(dot(i.normalDir,lightDirection) * _posterizesteps) / (_posterizesteps - 1));
+                float3 finalColor = (_LightColor0.rgb*node_1063*(node_1063+UNITY_LIGHTMODEL_AMBIENT.rgb)*attenuation);
                 return fixed4(finalColor * 1,0);
             }
             ENDCG
