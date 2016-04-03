@@ -50,6 +50,7 @@ public class Building : MonoBehaviour {
             }
             if (n == size.y - 1) break;
         }
+
         for (int i = 0; i < size.y; i++) {
             if (materials[i] == null)
                 materials[i] = faceTypes[faceTypes.Length-1].material;
@@ -63,13 +64,13 @@ public class Building : MonoBehaviour {
         foreach (Transform child in transform) children.Add(child.gameObject);
         children.ForEach(child => DestroyImmediate(child));
 
-        BuildFace(true, transform.position + new Vector3(-(faceSize * size.x / 2) + faceSize/2, 0, (faceSize * size.z / 2)), 0);
-        BuildFace(false, transform.position + new Vector3((faceSize * size.x / 2), 0, -(faceSize * size.z / 2) + faceSize / 2), 90);
-        BuildFace(true, transform.position + new Vector3(-(faceSize * size.x / 2) + faceSize/2, 0, -(faceSize * size.z / 2)), 180);
-        BuildFace(false, transform.position + new Vector3(-(faceSize * size.x / 2), 0, -(faceSize * size.z / 2) + faceSize/2), 270);
+        BuildFace(true, new Vector3(-(faceSize * size.x / 2) + faceSize/2, 0, (faceSize * size.z / 2)), 0);
+        BuildFace(false, new Vector3((faceSize * size.x / 2), 0, -(faceSize * size.z / 2) + faceSize / 2), 90);
+        BuildFace(true, new Vector3(-(faceSize * size.x / 2) + faceSize/2, 0, -(faceSize * size.z / 2)), 180);
+        BuildFace(false, new Vector3(-(faceSize * size.x / 2), 0, -(faceSize * size.z / 2) + faceSize/2), 270);
 
-        BuildCeil(transform.position + new Vector3(-(faceSize * size.x / 2) + faceSize / 2, 0, -(faceSize * size.z / 2)), 90);
-        BuildCeil(transform.position + new Vector3(-(faceSize * size.x / 2) + faceSize / 2, (faceSize * size.y), -(faceSize * size.z / 2) + faceSize), 270);
+        BuildCeil(new Vector3(-(faceSize * size.x / 2) + faceSize / 2, 0, -(faceSize * size.z / 2)), 90);
+        BuildCeil(new Vector3(-(faceSize * size.x / 2) + faceSize / 2, (faceSize * size.y), -(faceSize * size.z / 2) + faceSize), 270);
 
         for (int i =0; i < edges.Length; i++) BuildEdge(edges[i]);
 
@@ -90,14 +91,15 @@ public class Building : MonoBehaviour {
                         DestroyImmediate(face.gameObject);
                         face = (Face)PrefabUtility.InstantiatePrefab(faces[Random.Range(0, faces.Length)]);
                     }
-                    face.transform.position = pos;
-                    face.transform.Rotate(0, 0, rot);
+                    face.transform.parent = transform;
+                    face.transform.localPosition = pos;
+                    face.transform.Rotate(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z+rot);
                 } else {
                     face = (Face)PrefabUtility.InstantiatePrefab(emptyFace);
-                    face.transform.position = pos;
-                    face.transform.Rotate(0, rot, 0);
+                    face.transform.parent = transform;
+                    face.transform.localPosition = pos;
+                    face.transform.Rotate(transform.localEulerAngles.x, transform.localEulerAngles.y+rot, transform.localEulerAngles.z);
                 }
-                face.transform.parent = transform;
                 if (faceTypes.Length > 0) face.SetMaterial(materials[j]);
             }
         }
@@ -108,9 +110,9 @@ public class Building : MonoBehaviour {
         for (int j=0; j < size.x; j++) {
             for (int i=0; i < size.z; i++) {
                 Face face = (Face)PrefabUtility.InstantiatePrefab(emptyFace);
-                face.transform.position = new Vector3(o.x + j * faceSize, o.y, o.z + i * faceSize);
-                face.transform.Rotate(rot, 0, 0);
                 face.transform.parent = transform;
+                face.transform.localPosition = new Vector3(o.x + j * faceSize, o.y, o.z + i * faceSize);
+                face.transform.Rotate(transform.localEulerAngles.x+rot, transform.localEulerAngles.y, transform.localEulerAngles.z);
                 if (faceTypes.Length > 0) {
                     if (rot == 90) face.SetMaterial(materials[0]);
                     else  face.SetMaterial(materials[size.y - 1]);
@@ -129,9 +131,9 @@ public class Building : MonoBehaviour {
             else if (i == 0 && !invert || i == rsize-1 && invert) prefab = edgePrefab.left;
             else if (i == rsize-1 && !invert || i == 0 && invert) prefab = edgePrefab.right;
             edge = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-            edge.transform.position = pos;
-            edge.transform.Rotate(0, rot, 0, Space.World);
             edge.transform.parent = transform;
+            edge.transform.localPosition = pos;
+            edge.transform.Rotate(transform.localEulerAngles.x, transform.localEulerAngles.y+rot, transform.localEulerAngles.z, Space.World);
         }
 
     }
@@ -139,9 +141,9 @@ public class Building : MonoBehaviour {
     void BuildEdge(float height) {
         float h = height * size.y;
         
-        BuildEdgeFace(true, true, transform.position + new Vector3(-(faceSize * size.x / 2) + faceSize / 2, 0, (faceSize * size.z / 2)), 0, h);
-        BuildEdgeFace(false, false, transform.position + new Vector3((faceSize * size.x / 2), 0, -(faceSize * size.z / 2) + faceSize / 2), 90, h);
-        BuildEdgeFace(true, false, transform.position + new Vector3(-(faceSize * size.x / 2) + faceSize / 2, 0, -(faceSize * size.z / 2)), 180, h);
-        BuildEdgeFace(false, true, transform.position + new Vector3(-(faceSize * size.x / 2), 0, -(faceSize * size.z / 2) + faceSize / 2), 270, h);
+        BuildEdgeFace(true, true, new Vector3(-(faceSize * size.x / 2) + faceSize / 2, 0, (faceSize * size.z / 2)), 0, h);
+        BuildEdgeFace(false, false, new Vector3((faceSize * size.x / 2), 0, -(faceSize * size.z / 2) + faceSize / 2), 90, h);
+        BuildEdgeFace(true, false, new Vector3(-(faceSize * size.x / 2) + faceSize / 2, 0, -(faceSize * size.z / 2)), 180, h);
+        BuildEdgeFace(false, true, new Vector3(-(faceSize * size.x / 2), 0, -(faceSize * size.z / 2) + faceSize / 2), 270, h);
     }
 }

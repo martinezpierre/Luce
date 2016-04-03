@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Wire))]
+[CustomEditor(typeof(Wire)), CanEditMultipleObjects]
 public class WireInspector : Editor {
 
     Transform handleTransform;
@@ -9,6 +9,7 @@ public class WireInspector : Editor {
     Vector3 p0, p1, mp;
 
     public override void OnInspectorGUI() {
+        serializedObject.Update();
         DrawDefaultInspector();
         Wire wire = (Wire)target;
 
