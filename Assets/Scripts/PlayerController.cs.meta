@@ -1,10 +1,18 @@
 fileFormatVersion: 2
 guid: ffd7df1d07c9a6f47a7facd804821e41
-timeCreated: 1445781024
+timeCreated: 1459690316
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - spawn: {instanceID: 0}
+  - BodyMouseLook: {instanceID: 0}
+  - CameraMouseLook: {instanceID: 0}
+  - aim: {instanceID: 0}
+  - defaultAim: {fileID: 21300000, guid: 59c6678935e07804a95f0247c598d5d7, type: 3}
+  - unreachableAim: {fileID: 21300000, guid: a4d2be9a6a5303f4783d7222b85a432c, type: 3}
+  - canReachAim: {fileID: 21300000, guid: ff1816887244fa341b09405e99d46328, type: 3}
+  - canHookAim: {fileID: 21300000, guid: c2bbfb441983a78428ac4f79764a33d5, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

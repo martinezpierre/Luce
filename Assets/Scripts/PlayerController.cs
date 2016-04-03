@@ -43,6 +43,11 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public Image aim;
 
+    public Sprite defaultAim;
+    public Sprite unreachableAim;
+    public Sprite canReachAim;
+    public Sprite canHookAim;
+
     public bool canJump = true;
 
     public float hookSize = 10f;
@@ -54,10 +59,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         aC = GetComponentInChildren<Animator>();
-        
+
         spawn = transform;
 
         aim = GameObject.Find("Aim").GetComponent<Image>();
+
+        aim.sprite = defaultAim;
+
         aim.enabled = false;
 
         myNormal = transform.up; // normal starts as character up direction 
@@ -73,7 +81,7 @@ public class PlayerController : MonoBehaviour
         grapin = transform.Find("grapin").gameObject;
 
         grapinPos = grapin.transform.localPosition;
-        
+
     }
 
     void FixedUpdate()
@@ -108,18 +116,22 @@ public class PlayerController : MonoBehaviour
         aim.transform.position = Input.mousePosition;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance))
         {
-            if (hit.transform.gameObject.tag == "Building" || hit.transform.gameObject.tag == "Hookable")
+            if (hit.transform.gameObject.tag == "Building")
             {
-                aim.color = Color.green;
+                aim.sprite = canReachAim;
+            }
+            else if (hit.transform.gameObject.tag == "Hookable")
+            {
+                aim.sprite = canHookAim;
             }
             else
             {
-                aim.color = Color.red;
+                aim.sprite = unreachableAim;
             }
         }
         else
         {
-            aim.color = Color.red;
+            aim.sprite = defaultAim;
         }
 
         if ((Input.GetAxis("Vertical") == 0f && Input.GetAxis("Horizontal") == 0f))
@@ -186,7 +198,7 @@ public class PlayerController : MonoBehaviour
                         fpsView = !fpsView;
                         transform.Find("CameraFPS").GetComponent<Camera>().enabled = !transform.Find("CameraFPS").GetComponent<Camera>().enabled;
                         transform.Find("Main Camera").GetComponent<Camera>().enabled = !transform.Find("Main Camera").GetComponent<Camera>().enabled;
-                        StartCoroutine(JumpToWall(rHit.point, rHit.normal, true,false));
+                        StartCoroutine(JumpToWall(rHit.point, rHit.normal, true, false));
                     }
                 }
 
@@ -235,7 +247,7 @@ public class PlayerController : MonoBehaviour
             { // wall ahead?
 
                 Debug.DrawLine(finder.transform.position, hit.point, Color.red, 100f);
-                StartCoroutine(JumpToWall(hit.point, hit.normal, false,false)); // yes: jump to the wall
+                StartCoroutine(JumpToWall(hit.point, hit.normal, false, false)); // yes: jump to the wall
             }
 
         }
@@ -252,7 +264,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.Translate(0, 0, Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime);
             transform.Translate(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, 0, 0);
-            
+
         }
 
         aC.SetBool("Walk", Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal")) > 0);
@@ -268,7 +280,7 @@ public class PlayerController : MonoBehaviour
         if (canJump)
         {
             Transform cameraParent = CameraMouseLook.transform/*.GetChild(0)*/;
-            
+
             Vector3 cameraOriginPos = cameraParent.localPosition;
             Quaternion cameraOriginRot = cameraParent.localRotation;
 
@@ -294,8 +306,6 @@ public class PlayerController : MonoBehaviour
             {
                 dstPos = point + normal * distGround; // will jump to 0.5 above wall
             }
-
-
 
             Vector3 myForward = Vector3.Cross(transform.right, normal);
             Quaternion dstRot = Quaternion.LookRotation(myForward, normal);
@@ -325,7 +335,7 @@ public class PlayerController : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(orgRot, dstRot, t);
                 yield return null; // return here next frame
             }
-            
+
             if (smooth)
             {
 
@@ -442,8 +452,8 @@ public class PlayerController : MonoBehaviour
 
         for (i = 0f; i < 1; i += 0.05f)
         {
-            deadIm.color = new Color(deadIm.color.r, deadIm.color.g, deadIm.color.b,i);
-           // deadTx.color = new Color(deadTx.color.r, deadTx.color.g, deadTx.color.b, i);
+            deadIm.color = new Color(deadIm.color.r, deadIm.color.g, deadIm.color.b, i);
+            // deadTx.color = new Color(deadTx.color.r, deadTx.color.g, deadTx.color.b, i);
             yield return new WaitForSeconds(0.01f);
         }
 
@@ -464,3 +474,4 @@ public class PlayerController : MonoBehaviour
     }
 
 }
+
