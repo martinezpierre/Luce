@@ -91,15 +91,10 @@ public class Building : MonoBehaviour {
                         DestroyImmediate(face.gameObject);
                         face = (Face)PrefabUtility.InstantiatePrefab(faces[Random.Range(0, faces.Length)]);
                     }
-                    face.transform.parent = transform;
-                    face.transform.localPosition = pos;
-                    face.transform.Rotate(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z+rot);
-                } else {
-                    face = (Face)PrefabUtility.InstantiatePrefab(emptyFace);
-                    face.transform.parent = transform;
-                    face.transform.localPosition = pos;
-                    face.transform.Rotate(transform.localEulerAngles.x, transform.localEulerAngles.y+rot, transform.localEulerAngles.z);
-                }
+                } else face = (Face)PrefabUtility.InstantiatePrefab(emptyFace);
+                face.transform.parent = transform;
+                face.transform.localPosition = pos;
+                face.transform.Rotate(transform.localEulerAngles.x, transform.localEulerAngles.y + rot, transform.localEulerAngles.z);
                 if (faceTypes.Length > 0) face.SetMaterial(materials[j]);
             }
         }
