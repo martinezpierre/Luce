@@ -13,7 +13,8 @@ public class Cam : MonoBehaviour
 
     void Start()
     {
-
+        if (GameObject.Find("Skybox") && SkyboxContainer == null)
+            SkyboxContainer = GameObject.Find("Skybox").transform;
     }
 
     public void LateUpdate()
@@ -34,5 +35,5 @@ public class Cam : MonoBehaviour
         myCam.Render();
         myCam.cullingMask = LayerAll.value;
         myCam.targetTexture = null;
-    } 
+    }
 }
