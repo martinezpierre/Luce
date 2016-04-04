@@ -43,6 +43,11 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public Image aim;
 
+    public Sprite defaultAim;
+    public Sprite unreachableAim;
+    public Sprite canReachAim;
+    public Sprite canHookAim;
+
     public bool canJump = true;
 
     public float hookSize = 10f;
@@ -58,6 +63,9 @@ public class PlayerController : MonoBehaviour
         spawn = transform;
 
         aim = GameObject.Find("Aim").GetComponent<Image>();
+
+        aim.sprite = defaultAim;
+
         aim.enabled = false;
 
         myNormal = transform.up; // normal starts as character up direction 
@@ -108,18 +116,22 @@ public class PlayerController : MonoBehaviour
         aim.transform.position = Input.mousePosition;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance))
         {
-            if (hit.transform.gameObject.tag == "Building" || hit.transform.gameObject.tag == "Hookable")
+            if (hit.transform.gameObject.tag == "Building")
             {
-                aim.color = Color.green;
+                aim.sprite = canReachAim;
+            }
+            else if(hit.transform.gameObject.tag == "Hookable")
+            {
+                aim.sprite = canHookAim;
             }
             else
             {
-                aim.color = Color.red;
+                aim.sprite = unreachableAim;
             }
         }
         else
         {
-            aim.color = Color.red;
+            aim.sprite = defaultAim;
         }
 
         if ((Input.GetAxis("Vertical") == 0f && Input.GetAxis("Horizontal") == 0f))
@@ -294,9 +306,7 @@ public class PlayerController : MonoBehaviour
             {
                 dstPos = point + normal * distGround; // will jump to 0.5 above wall
             }
-
-
-
+            
             Vector3 myForward = Vector3.Cross(transform.right, normal);
             Quaternion dstRot = Quaternion.LookRotation(myForward, normal);
 

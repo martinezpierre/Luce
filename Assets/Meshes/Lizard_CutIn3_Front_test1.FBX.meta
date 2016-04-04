@@ -1,0 +1,153 @@
+fileFormatVersion: 2
+guid: 68c0151dce1a6724ba61e36f33143174
+timeCreated: 1459601873
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: b_armLower_L
+    100002: b_armLower_R
+    100004: b_armUpper_L
+    100006: b_armUpper_R
+    100008: b_collarbone_L
+    100010: b_collarbone_R
+    100012: b_foot_end_L
+    100014: b_foot_end_R
+    100016: b_foot_L
+    100018: b_foot_R
+    100020: b_hand_end_L
+    100022: b_hand_end_R
+    100024: b_hand_L
+    100026: b_hand_R
+    100028: b_hip_L
+    100030: b_hip_R
+    100032: b_lamp_1
+    100034: b_lamp_2
+    100036: b_legLower_L
+    100038: b_legLower_R
+    100040: b_legUpper_L
+    100042: b_legUpper_R
+    100044: b_spine_1_master
+    100046: b_spine_2
+    100048: b_spine_3
+    100050: b_spine_end
+    100052: b_spine_head
+    100054: b_spine_neck
+    100056: b_spine_shoulders
+    100058: b_tail_1
+    100060: b_tail_2
+    100062: b_tail_3
+    100064: b_tail_4
+    100066: b_tail_5
+    100068: b_tail_6
+    100070: b_tail_end
+    100072: c_allBody
+    100074: lizard 2 Front
+    100076: //RootNode
+    400000: b_armLower_L
+    400002: b_armLower_R
+    400004: b_armUpper_L
+    400006: b_armUpper_R
+    400008: b_collarbone_L
+    400010: b_collarbone_R
+    400012: b_foot_end_L
+    400014: b_foot_end_R
+    400016: b_foot_L
+    400018: b_foot_R
+    400020: b_hand_end_L
+    400022: b_hand_end_R
+    400024: b_hand_L
+    400026: b_hand_R
+    400028: b_hip_L
+    400030: b_hip_R
+    400032: b_lamp_1
+    400034: b_lamp_2
+    400036: b_legLower_L
+    400038: b_legLower_R
+    400040: b_legUpper_L
+    400042: b_legUpper_R
+    400044: b_spine_1_master
+    400046: b_spine_2
+    400048: b_spine_3
+    400050: b_spine_end
+    400052: b_spine_head
+    400054: b_spine_neck
+    400056: b_spine_shoulders
+    400058: b_tail_1
+    400060: b_tail_2
+    400062: b_tail_3
+    400064: b_tail_4
+    400066: b_tail_5
+    400068: b_tail_6
+    400070: b_tail_end
+    400072: c_allBody
+    400074: lizard 2 Front
+    400076: //RootNode
+    4300000: lizard 2 Front
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: lizard 2 Front
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

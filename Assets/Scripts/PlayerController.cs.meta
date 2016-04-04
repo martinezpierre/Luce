@@ -1,10 +1,18 @@
 fileFormatVersion: 2
 guid: ffd7df1d07c9a6f47a7facd804821e41
-timeCreated: 1445781024
+timeCreated: 1459691411
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - spawn: {instanceID: 0}
+  - BodyMouseLook: {instanceID: 0}
+  - CameraMouseLook: {instanceID: 0}
+  - aim: {instanceID: 0}
+  - defaultAim: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - unreachableAim: {instanceID: 0}
+  - canReachAim: {instanceID: 0}
+  - canHookAim: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
