@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
         GetComponent<Rigidbody>().AddForce(-gravity * GetComponent<Rigidbody>().mass * myNormal);
     }
 
-    public void OnCollisionEnter(Collision other)
+    public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Building" || other.gameObject.tag == "Floor")
         {
@@ -369,7 +369,7 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             aim.enabled = false;
 
-
+            hooked = false;
         }
 
         yield return null;
@@ -409,7 +409,7 @@ public class PlayerController : MonoBehaviour
 
             myNormal = normal; // update myNormal
             GetComponent<Rigidbody>().isKinematic = false; // enable physics
-
+            
             while (sJL.limit > hookSize)
             {
                 sJL.limit -= 1;
@@ -420,6 +420,24 @@ public class PlayerController : MonoBehaviour
             }
 
             jumping = false; // jumping to wall finished
+        }
+
+        hooked = true;
+
+        StartCoroutine(clampVelocity());
+
+        yield return null;
+    }
+
+    bool hooked;
+
+    IEnumerator clampVelocity()
+    {
+        while (hooked)
+        {
+            Debug.Log("" + GetComponent<Rigidbody>().velocity.magnitude);
+            GetComponent<Rigidbody>().velocity = Vector3.ClampMagnitude(GetComponent<Rigidbody>().velocity, 8);
+            yield return null;
         }
 
         yield return null;
@@ -459,6 +477,7 @@ public class PlayerController : MonoBehaviour
 
         transform.position = spawn.position;
         transform.rotation = spawn.rotation;
+        myNormal = spawn.transform.up;
 
         yield return new WaitForSeconds(0.1f);
 

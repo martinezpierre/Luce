@@ -97,11 +97,11 @@ public class MouseOrbitImproved : MonoBehaviour
 
         if (Physics.Linecast(zoomTarget.position, transform.position, out hit) && hit.transform.gameObject != zoomTarget)
         {
-            distance -= .25f; //hit.distance;
+            distance -= 1f; //hit.distance;
         }
         else if(!Physics.Raycast(transform.position, -transform.forward, out hit, 1f))
         {
-            distance += .25f;
+            distance += 1f;
         }
 
         distanceCoef = distance / distanceMax;
@@ -128,8 +128,8 @@ public class MouseOrbitImproved : MonoBehaviour
 
         while (y < yMaxLimit)
         {
-            y += dif / 50f;
-            yield return new WaitForEndOfFrame();
+            y += dif / 10f;
+            yield return new WaitForSeconds(0.001f);
         }
         correcting = false;
     }
