@@ -89,7 +89,7 @@ public class MouseOrbitImproved : MonoBehaviour
         y = ClampAngle(y, yMinLimit, yMaxLimit);
         Quaternion rotation = Quaternion.Euler(y, 0, 0);
 
-        distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
+        distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * 5, distanceMin, 50);
 
         //camera change
 
@@ -99,7 +99,7 @@ public class MouseOrbitImproved : MonoBehaviour
         {
             distance -= 1f; //hit.distance;
         }
-        else if(!Physics.Raycast(transform.position, -transform.forward, out hit, 1f))
+        else if(!Physics.Raycast(transform.position, -transform.forward, out hit, 1f) && distance+1f < distanceMax)
         {
             distance += 1f;
         }

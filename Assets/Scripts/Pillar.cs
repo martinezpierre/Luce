@@ -5,10 +5,12 @@ using System.Collections.Generic;
 public class Pillar : MonoBehaviour {
 
     LampManager lm;
-    public GameObject fireflies;
-    public Material newMat;
     
     public List<LampController> lamps = new List<LampController>();
+
+    public List<GameObject> darkmatters = new List<GameObject>();
+
+    public List<GameObject> level4Objects = new List<GameObject>();
 
     // Use this for initialization
     void Start () {
@@ -20,15 +22,24 @@ public class Pillar : MonoBehaviour {
     {
         if (lm.nbLampLighted >= lamps.Count)
         {
-            fireflies.SetActive(true);  
+            //last
+            foreach (GameObject ob in level4Objects)
+            {
+                ob.SetActive(true);
+            }
         }
         else if(lm.nbLampLighted >= lamps.Count * 2 / 3)
-        {         
-            GetComponent<Renderer>().material.color = Color.yellow;
+        {
+            //second
+            GetComponent<Renderer>().material.SetFloat("_blend", 1);
         }
         else if(lm.nbLampLighted >= lamps.Count * 1 / 3)
         {
-            GetComponent<Renderer>().material = newMat;
+            //first
+            foreach(GameObject darkmat in darkmatters)
+            {
+                darkmat.SetActive(false);
+            }
         }
     }
 }

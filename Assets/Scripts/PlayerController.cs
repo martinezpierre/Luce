@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         aC = GetComponentInChildren<Animator>();
-
+        
         spawn = transform;
 
         aim = GameObject.Find("Aim").GetComponent<Image>();
@@ -266,9 +266,9 @@ public class PlayerController : MonoBehaviour
             transform.Translate(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, 0, 0);
 
         }
-
-        aC.SetBool("Walk", Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal")) > 0);
-
+        
+        aC.SetBool("isWalking", Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal")) > 0);
+        
         if (!isGrounded)
         {
             myNormal = Vector3.up;
@@ -279,6 +279,8 @@ public class PlayerController : MonoBehaviour
     {
         if (canJump)
         {
+            aC.SetBool("Flying", smooth);
+
             Transform cameraParent = CameraMouseLook.transform/*.GetChild(0)*/;
 
             Vector3 cameraOriginPos = cameraParent.localPosition;
@@ -333,8 +335,17 @@ public class PlayerController : MonoBehaviour
                 t += Time.deltaTime;
                 transform.position = Vector3.Lerp(orgPos, dstPos, t);
                 transform.rotation = Quaternion.Slerp(orgRot, dstRot, t);
+
+                if (smooth)
+                {
+                    cameraParent.position = Vector3.MoveTowards(cameraParent.position, transform.position, t*10000);
+                }
+
                 yield return null; // return here next frame
             }
+
+
+            aC.SetBool("Flying", false);
 
             if (smooth)
             {
@@ -351,8 +362,18 @@ public class PlayerController : MonoBehaviour
                     t += Time.deltaTime;
                     cameraParent.localPosition = Vector3.Lerp(cameraOrgPos, cameraOriginPos, t);
                     cameraParent.localRotation = Quaternion.Slerp(cameraOrgRot, cameraOriginRot, t);
+                    
                     yield return null; // return here next frame
                 }
+
+                /*Vector3 camrot = cameraParent.GetComponentInChildren<Camera>().transform.eulerAngles;
+                Vector3 campos = cameraParent.GetComponentInChildren<Camera>().transform.position;
+
+                cameraParent.localRotation = cameraOriginRot;
+
+                cameraParent.GetComponentInChildren<Camera>().transform.eulerAngles = camrot;
+                cameraParent.GetComponentInChildren<Camera>().transform.position = campos;*/
+
             }
 
             grapin.transform.parent = gameObject.transform;
@@ -370,6 +391,8 @@ public class PlayerController : MonoBehaviour
             aim.enabled = false;
 
             hooked = false;
+
+
         }
 
         yield return null;
@@ -377,10 +400,14 @@ public class PlayerController : MonoBehaviour
 
     }
 
+   
+
     IEnumerator Hook(Vector3 point, Vector3 normal)
     {
         if (canJump)
         {
+            aC.SetBool("Flying", true);
+
             ConfigurableJoint cJ = grapin.GetComponent<ConfigurableJoint>();
 
             // jump to wall 

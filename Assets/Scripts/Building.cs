@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿
+#if UNITY_EDITOR
+
+using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 
@@ -145,3 +148,5 @@ public class Building : MonoBehaviour {
         BuildEdgeFace(false, true, transform.position + new Vector3(-(faceSize * size.x / 2), 0, -(faceSize * size.z / 2) + faceSize / 2), 270, h);
     }
 }
+
+#endif
