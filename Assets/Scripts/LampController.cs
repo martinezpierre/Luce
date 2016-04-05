@@ -5,13 +5,15 @@ public class LampController : MonoBehaviour
 
     [HideInInspector]
     public bool lighted = false;
-    public float fadeDuration;
+    public float fadeDuration, smolFireflies = 1;
     float elapsedT, intensity, lightModifier = 0.5f, random;
     Light halo;
+    ParticleSystem.SizeOverLifetimeModule fireflies;
 
     void Awake()
     {
         halo = GetComponentInChildren<Light>();
+        fireflies = GetComponentInChildren<ParticleSystem>().sizeOverLifetime;
         intensity = halo.intensity;
         halo.intensity = 0;
         random = Random.Range(0.0f, 65535.0f);
@@ -21,7 +23,6 @@ public class LampController : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-
             other.GetComponentInParent<Burst>().canReload = true;
 
             if (!lighted)
@@ -29,6 +30,13 @@ public class LampController : MonoBehaviour
                 halo.enabled = true;
                 LampManager.Instance.NewLampLighted(gameObject);
                 lighted = true;
+                
+                AnimationCurve curve = new AnimationCurve();
+                curve.AddKey(0.0f, 0.0f);
+                curve.AddKey(0.5f, smolFireflies);
+                curve.AddKey(1, 0.0f);
+
+                fireflies.size = new ParticleSystem.MinMaxCurve(1, curve);
             }
         }
     }
