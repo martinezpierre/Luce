@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Maps
+  m_Shader: {fileID: 4800000, guid: 75c6bcc6850e57a45bdbf918738c889b, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: __t_off
+        second:
+          m_Texture: {fileID: 2800000, guid: a6426489ce428a646a21233d95dda613, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: __t_on
+        second:
+          m_Texture: {fileID: 2800000, guid: ef438712a0924274a806c6bd1378cb4c, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _lamp_alpha
+        second:
+          m_Texture: {fileID: 2800000, guid: 64eeb91d37477ca4cb9fdbc155416be9, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _blend
+        second: 0
+    m_Colors:
+      data:
+        first:
+          name: _LightOn_colour
+        second: {r: 1, g: 0.6413793, b: 0, a: 1}
