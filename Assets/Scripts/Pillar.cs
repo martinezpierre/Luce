@@ -31,8 +31,8 @@ public class Pillar : MonoBehaviour {
                 ob.SetActive(true);
             }
 
-            float noise = Mathf.PerlinNoise(0.5f, Time.time);
-            GetComponent<Renderer>().material.SetFloat("_divideEmission", Mathf.Lerp(0.5f, 0.7f, noise));
+            float noise = Mathf.PerlinNoise(0.1f, Time.time);
+            GetComponent<Renderer>().material.SetFloat("_divideemission", Mathf.Lerp(0, 0.7f, noise));
         }
         else if(lm.nbLampLighted >= lamps.Count * 2 / 3)
         {

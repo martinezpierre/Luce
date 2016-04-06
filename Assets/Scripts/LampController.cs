@@ -6,6 +6,7 @@ public class LampController : MonoBehaviour
     [HideInInspector]
     public bool lighted = false;
     public float fadeDuration, smolFireflies = 1;
+    public bool isMap;
     float elapsedT, intensity, lightModifier = 0.5f, random;
     Light halo;
     ParticleSystem.SizeOverLifetimeModule fireflies;
@@ -28,7 +29,7 @@ public class LampController : MonoBehaviour
             if (!lighted)
             {
                 halo.enabled = true;
-                LampManager.Instance.NewLampLighted(gameObject);
+                if (!isMap) LampManager.Instance.NewLampLighted(gameObject);
                 lighted = true;
                 
                 AnimationCurve curve = new AnimationCurve();
