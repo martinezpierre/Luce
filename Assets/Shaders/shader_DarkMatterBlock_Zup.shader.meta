@@ -1,13 +1,14 @@
 fileFormatVersion: 2
 guid: 684707df6670bc34ea5e748b5640352a
-timeCreated: 1459780175
+timeCreated: 1459939598
 licenseType: Pro
 ShaderImporter:
   defaultTextures:
   - _Tex_Cloud: {fileID: 2800000, guid: 9664107dab8b7eb47b60b15d908bf7d6, type: 3}
   - _Tex_BigCloud: {fileID: 2800000, guid: 9664107dab8b7eb47b60b15d908bf7d6, type: 3}
   - _Tex_WaveCloud: {fileID: 2800000, guid: 9664107dab8b7eb47b60b15d908bf7d6, type: 3}
-  - _diffuse: {fileID: 2800000, guid: b07750ad21c73b74699037a14aa8ff6a, type: 3}
+  - _diffuse: {fileID: 2800000, guid: af6f343374bb86b4eae96abe0bf439eb, type: 3}
+  - _alpha: {fileID: 2800000, guid: c22af91000e0acf408efabb1127c9c81, type: 3}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
