@@ -17,8 +17,8 @@ public class ColliderController : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        pC.OnTriggerEnter(other);
-
         Debug.Log("trigger enter");
+        pC.TriggerDetect(other);
+
     }
 }

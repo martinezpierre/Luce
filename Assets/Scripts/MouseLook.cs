@@ -25,12 +25,10 @@ public class MouseLook : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("click");
             aiming = true;
         }
         else if (Input.GetMouseButtonUp(1) || ((Input.GetAxis("Vertical") != 0f || Input.GetAxis("Horizontal") != 0f) && tag == "Player"))
         {
-            Debug.Log("clickUp");
             aiming = false;
         }
 

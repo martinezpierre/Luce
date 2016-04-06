@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
         GetComponent<Rigidbody>().AddForce(-gravity * GetComponent<Rigidbody>().mass * myNormal);
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void TriggerDetect(Collider other)
     {
         if (other.gameObject.tag == "Building" || other.gameObject.tag == "Floor")
         {
